@@ -1,49 +1,26 @@
 package i_introduction._7_Nullable_Types
 
+import i_introduction._6_Data_Classes.Person
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class _07_Nullable_Types {
-    fun testSendMessageToClient(
-            client: Client?,
-            message: String?,
-            email: String? = null,
-            shouldBeInvoked: Boolean = false
-    ) {
-        var invoked = false
-        sendMessageToClient(client, message, object : Mailer {
-            override fun sendMessage(actualEmail: String, actualMessage: String) {
-                invoked = true
-                assertEquals("The message is not as expected:",
-                        message, actualMessage)
-                assertEquals("The email is not as expected:",
-                        email, actualEmail)
-            }
-        })
-        assertEquals("The function 'sendMessage' should${if (shouldBeInvoked) "" else "n't"} be invoked",
-                shouldBeInvoked, invoked)
+
+
+    @Test fun middleNameIsOptional() {
+//         val alice = Person(name = "Alice", middleName = null, age = 29)
+//         val bob = Person(name="Bob", middleName="Norman", age=29)
+//
+//         assertEquals(alice.middleName, null)
+//         assertEquals(bob.middleName, "Norman")
+//
+//         assertEquals("N", middleInitial(bob))
+//         assertEquals(null, middleInitial(alice))
     }
 
-    @Test fun everythingIsOk() {
-        testSendMessageToClient(Client(PersonalInfo("bob@gmail.com")),
-                "Hi Bob! We have an awesome proposition for you...",
-                "bob@gmail.com",
-                true)
+    fun middleInitial(person: Person): String? {
+        // use substring!
+        return ""
     }
 
-    @Test fun noMessage() {
-        testSendMessageToClient(Client(PersonalInfo("bob@gmail.com")), null)
-    }
-
-    @Test fun noEmail() {
-        testSendMessageToClient(Client(PersonalInfo(null)), "Hi Bob! We have an awesome proposition for you...")
-    }
-
-    @Test fun noPersonalInfo() {
-        testSendMessageToClient(Client(null), "Hi Bob! We have an awesome proposition for you...")
-    }
-
-    @Test fun noClient() {
-        testSendMessageToClient(null, "Hi Bob! We have an awesome proposition for you...")
-    }
 }

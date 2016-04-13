@@ -4,15 +4,21 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class _08_Smart_Casts {
-    @Test fun testNum() {
-        assertEquals("'eval' on Num should work:", 2, eval(Num(2)))
+
+    @Test fun testObjectTypeSwitch() {
+        assertEquals(33, retrieveId(SavedItem(33)))
+        assertEquals(null, retrieveId(UnsavedItem()))
     }
 
-    @Test fun testSum() {
-        assertEquals("'eval' on Sum should work:", 3, eval(Sum(Num(2), Num(1))))
-    }
-
-    @Test fun testRecursion() {
-        assertEquals("'eval' should work recursively:", 6, eval(Sum(Sum(Num(1), Num(2)), Num(3))))
+    private fun retrieveId(item: Item): Long? {
+//        when (item) {
+//            is UnsavedItem -> throw UnsupportedOperationException("not implemented")
+//        }
+        return 0
     }
 }
+
+open class Item(val id: Long?)
+
+class SavedItem(id: Long) : Item(id)
+class UnsavedItem() : Item(id=null)
